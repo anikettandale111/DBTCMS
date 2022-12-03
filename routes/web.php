@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserAuthenticationController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -17,20 +14,17 @@ use App\Http\Controllers\UserAuthenticationController;
 */
 
 Route::get('/', function () {
-    return view('auth/login');
+    return view('auth.login');
 });
+Auth::routes();
 
-Route::get('/login', function () {
-    return view('auth/login');
-});
-
-Route::get('/dashboard', [App\Http\Controllers\UserAuthenticationController::class, 'index'])->name('dashboard');
+Route::get('/admin-dashboard', [App\Http\Controllers\AdminController::class, 'adminDashboard']);
+Route::get('/student-dashboard', [App\Http\Controllers\StudentController::class, 'studentDashboard']);
 
 Route::get('/student_list', [App\Http\Controllers\StudentController::class, 'studentsList'])->name('student_list');
 
 Route::get('/student_add', [App\Http\Controllers\StudentController::class, 'index'])->name('student_add');
 Route::post('/student_insert', [App\Http\Controllers\StudentController::class, 'store']);
 
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
