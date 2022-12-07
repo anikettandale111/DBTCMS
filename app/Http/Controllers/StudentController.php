@@ -7,22 +7,47 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
+use App\Models\District;
+use App\Models\Taluka;
 use DataTables;
 use DB;
 
 class StudentController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            $user_role = Auth::user()->user_role;
+            if($user_role !== ""){
+                return $next($request);
+            }else{
+                return redirect ("logout");
+            }
+        });
+    }
     public function index(Request $request){
-        return view('students/student_registration');
+        $district_List = District::get();
+        // dd($district_List);
+        return view('students/student_registration',compact('district_List'));
     }
 
     public function studentsList(Request $request){
         $students_list = Student::get();
-        //  print_r($students_list);
         return view('students/students_list',compact('students_list'));
-        // return view('students/students_list');
+    }
+
+    public function studentAadhaarAuthenticationList(Request $request){
+        $students_list = Student::get();
+        return view('students/student_aadhaar_verification',compact('students_list'));
+    }
+
+    public function studentRenewal(Request $request){
+        $students_list = Student::get();
+        return view('students/student_renewal',compact('students_list'));
     }
     
     public function store(Request $request){
@@ -106,14 +131,51 @@ class StudentController extends Controller
             $message = 'Student Updated Successfully';
         }
 
+        return redirect()->route('student-list');
+    }
 
-        // if($resultId){
-        //     return ['status'=>'Success','message'=>$message];
-        // }else{
-        //     return ['status'=>'Success','message'=>$message];
+    public function updateStudentAadhaar(Request $request){
+        if ($request->updStudentId > 0) {
+            Student::where('id',$request->updStudentId)->update([
+                'aadhaar_number'=>$request->updNewAadhaarNumber,
+            ]);
+        }
+        return redirect()->route('student-aadhaar-list');
+    }
+
+    public function showCityByDistrict(Request $request){
+        $districtName=$request->districtName;
+        if($districtName !=""){
+            $districtData = District::where('district_title',$districtName);
+            print_r($districtData);
+        }
+        
+
+        // if ($request->updStudentId > 0) {
+        //     District::where('district_title',$districtName)->update([
+        //         'aadhaar_number'=>$request->updNewAadhaarNumber,
+        //     ]);
         // }
+        // return redirect()->route('student-aadhaar-list');
+    }
 
-        return redirect()->route('student_list');
+    
+
+    public function updateStudentAadhaarAuthentication(Request $request){
+        // dd($request);
+        if ($request->updAuthStudentId > 0) {
+            $status=$request->newAuthStatus;
+            if($status=="on"){
+                $status="1";
+            }else{
+                $status="0";
+            }
+
+            Student::where('id',$request->updAuthStudentId)->update([
+                'is_aadhaar_verified'=>$status,
+            ]);
+        }
+        return redirect()->route('student-aadhaar-list');
     }
 
     public function show($id){

@@ -12,6 +12,15 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{asset('assets/images/dbt/img2.png')}}">
 
+        
+
+        <!-- third party css -->
+        <!-- <link href="{{asset('assets/css/vendor/dataTables.bootstrap5.css')}}" rel="stylesheet" type="text/css"> -->
+        <!-- <link href="{{asset('assets/css/vendor/responsive.bootstrap5.css')}}" rel="stylesheet" type="text/css"> -->
+        <link href="{{asset('assets/css/vendor/buttons.bootstrap5.css')}}" rel="stylesheet" type="text/css">
+        <!-- <link href="{{asset('assets/css/vendor/select.bootstrap5.css')}}" rel="stylesheet" type="text/css"> -->
+        <!-- third party css end -->
+
         <!-- third party css -->
         <link href="{{asset('assets/css/vendor/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet" type="text/css">
         <!-- third party css end -->
@@ -30,7 +39,7 @@
             <div class="leftside-menu">
     
                 <!-- LOGO -->
-                <a href="{{ route('dashboard') }}" class="logo text-center logo-light">
+                <a href="{{ route('clerk-dashboard') }}" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
@@ -40,7 +49,7 @@
                 </a>
 
                 <!-- LOGO -->
-                <a href="{{ route('dashboard') }}" class="logo text-center logo-dark">
+                <a href="{{ route('clerk-dashboard') }}" class="logo text-center logo-dark">
                     <span class="logo-lg">
                         <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
@@ -57,28 +66,28 @@
                         
 
                         <li class="side-nav-item">
-                            <a href="{{ route('dashboard') }}" class="side-nav-link">
+                            <a href="{{ route('clerk-dashboard') }}" class="side-nav-link">
                                 <i class="uil-calender"></i>
                                 <span> Dashboards </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="{{ route('student_add') }}" class="side-nav-link">
+                            <a href="{{ route('student-add') }}" class="side-nav-link">
                                 <i class="uil-calender"></i>
                                 <span> Student Registration </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="{{ route('student_list') }}" class="side-nav-link">
+                            <a href="{{ route('student-list') }}" class="side-nav-link">
                                 <i class="uil-comments-alt"></i>
                                 <span> Renewal Student </span>
                             </a>
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="javascript: void(0);" class="side-nav-link">
+                            <a href="{{ route('student-aadhaar-list') }}" class="side-nav-link">
                                 <i class="uil-comments-alt"></i>
                                 <span> Verification Aadhaar </span>
                             </a>
@@ -224,7 +233,7 @@
                                         <img src="{{asset('assets/images/dbt/img2.png')}}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
-                                        <span class="account-user-name">Clerk Demo</span>
+                                        <span class="account-user-name">{{ Auth::user()->email }} </span>
                                         <span class="account-position">Clerk</span>
                                     </span>
                                 </a>
@@ -238,25 +247,15 @@
                                         <span>My Account</span>
                                     </a>
 
-                                    <!-- <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-account-edit me-1"></i>
-                                        <span>Settings</span>
-                                    </a>
 
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-lifebuoy me-1"></i>
-                                        <span>Support</span>
-                                    </a>
-
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <i class="mdi mdi-lock-outline me-1"></i>
-                                        <span>Lock Screen</span>
-                                    </a> -->
-
-                                    <a href="{{ route('logout') }}" class="dropdown-item notify-item">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout me-1"></i>
                                         <span>Logout</span>
                                     </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
 
@@ -266,8 +265,7 @@
                         </button>
 
                         <div class="app-search dropdown d-none d-lg-block">
-                            <div class="input-group">
-                            <h3>Tribal Development Commissionerate</h3>
-                            </div>
+                            <h3>DIRECT BENEFIT TRANSFER(DBT) </h3>
+                            <h4>Tribal Development Commissionerate</h4>
                         </div>
                     </div>

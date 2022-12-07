@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AdminController extends Controller
+class PoController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,7 +18,7 @@ class AdminController extends Controller
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
             $user_role = Auth::user()->user_role;
-            if($user_role == 1){
+            if($user_role == 4){
                 return $next($request);
             }else{
                 return redirect ("logout");
@@ -31,8 +31,8 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function adminDashboard()
+    public function poDashboard()
     {
-        return view('home');
+        return view('dashboards.po_dashboard');
     }
 }

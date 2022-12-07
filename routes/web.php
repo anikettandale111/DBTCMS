@@ -18,13 +18,25 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/admin-dashboard', [App\Http\Controllers\AdminController::class, 'adminDashboard']);
-Route::get('/student-dashboard', [App\Http\Controllers\StudentController::class, 'studentDashboard']);
+Route::get('/admin-dashboard', [App\Http\Controllers\AdminController::class, 'adminDashboard'])->name('admin-dashboard');
+Route::get('/principal-dashboard', [App\Http\Controllers\PrinipalController::class, 'principalDashboard'])->name('principal-dashboard');
+Route::get('/clerk-dashboard', [App\Http\Controllers\ClerkController::class, 'clerkDashboard'])->name('clerk-dashboard');
+Route::get('/po-dashboard', [App\Http\Controllers\PoController::class, 'poDashboard'])->name('po-dashboard');
 
-Route::get('/student_list', [App\Http\Controllers\StudentController::class, 'studentsList'])->name('student_list');
+Route::get('/student-list', [App\Http\Controllers\StudentController::class, 'studentsList'])->name('student-list');
+Route::get('/student-aadhaar-list', [App\Http\Controllers\StudentController::class, 'studentAadhaarAuthenticationList'])->name('student-aadhaar-list');
+Route::get('/student-renewal', [App\Http\Controllers\StudentController::class, 'studentRenewal'])->name('student-renewal');
 
-Route::get('/student_add', [App\Http\Controllers\StudentController::class, 'index'])->name('student_add');
-Route::post('/student_insert', [App\Http\Controllers\StudentController::class, 'store']);
+
+Route::get('/student-add', [App\Http\Controllers\StudentController::class, 'index'])->name('student-add');
+Route::post('/student-insert', [App\Http\Controllers\StudentController::class, 'store'])->name('student-insert');
+Route::post('/update-student-aadhaar', [App\Http\Controllers\StudentController::class, 'updateStudentAadhaar'])->name('update-student-aadhaar');
+Route::post('/update-aadhaar-authentication', [App\Http\Controllers\StudentController::class, 'updateStudentAadhaarAuthentication'])->name('update-aadhaar-authentication');
+
+
+Route::post('/show-all-city', [App\Http\Controllers\StudentController::class, 'showCityByDistrict'])->name('show-all-city');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');

@@ -56,26 +56,23 @@
                                         </div>
                 
                                         <div class="table-responsive">
-                                            <table class="table table-centered mb-0">
-                                                <thead class="table-light">
-                                                    <tr>
-                                                        <!-- <th style="width: 20px;">
-                                                            <div class="form-check">
-                                                                <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                                <label class="form-check-label" for="customCheck1">&nbsp;</label>
-                                                            </div>
-                                                        </th> -->
-                                                        <th>Sr. No</th>
-                                                        <th>GRN ID</th>
+                                            <table id="datatable-buttons" class="table table-striped dt-responsive nowrap w-100">
+                                                    <thead>
+                                                        <tr>
+                                                        <th>#</th>
+                                                        <th>GRN</th>
                                                         <th>Class</th>
                                                         <th>Gender</th>
                                                         <th>Name</th>
                                                         <th>Aadhaar No</th>
                                                         <th style="width: 125px;">Renew</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                @if(count($students_list))
+                                                        </tr>
+                                                        
+                                                    </thead>
+                                                
+                                                
+                                                    <tbody>
+                                                        @if(count($students_list))
                                                     @foreach($students_list AS $key => $studs)
                                                     <tr>
                                                         <!-- <td>
@@ -105,7 +102,7 @@
                                                         
                                                         <td>
                                                             <!-- <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-eye"></i></a> -->
-                                                            <a href="{{ route('student_add') }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="{{ route('student-renewal') }}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
                                                             <!-- <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a> -->
                                                         </td>
                                                     </tr>
@@ -114,9 +111,8 @@
                                                     
 
                                                     
-                                                    
-                                                </tbody>
-                                            </table>
+                                                    </tbody>
+                                                </table>  
                                         </div>
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->

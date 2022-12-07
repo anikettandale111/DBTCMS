@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -43,11 +44,17 @@ class LoginController extends Controller
         if($user->user_role == 1) {
             return redirect('/admin-dashboard');
         }else if($user->user_role == 2) {
-            return redirect('/student-dashboard');
+            return redirect('/principal-dashboard'); 
+        }else if($user->user_role == 3) {
+            return redirect('/clerk-dashboard');
+        }else if($user->user_role == 4) {
+            return redirect('/po-dashboard');
+        }else{
+            //logout OR redirect to login page
         } 
-
-        if ($user->hasRole('PrivilegedMember')) {
-            return redirect()->intended('PriviligedMember/index');
-        }
+    }
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/login');
     }
 }

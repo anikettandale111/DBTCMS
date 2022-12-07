@@ -10,7 +10,7 @@
         <meta content="Coderthemes" name="author">
         <title>{{ config('app.name', 'Laravel') }}</title>
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
+        <link rel="shortcut icon" href="{{asset('assets/images/dbt/img2.ico')}}">
 
         <!-- third party css -->
         <link href="{{asset('assets/css/vendor/jquery-jvectormap-1.2.2.css')}}" rel="stylesheet" type="text/css">
@@ -30,22 +30,22 @@
             <div class="leftside-menu">
     
                 <!-- LOGO -->
-                <a href="{{ route('dashboard') }}" class="logo text-center logo-light">
+                <a href="{{ route('principal-dashboard') }}" class="logo text-center logo-light">
                     <span class="logo-lg">
-                        <img src="{{asset('assets/images/img2.png')}}" alt="" height="16">
+                        <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
                     <span class="logo-sm">
-                        <img src="{{asset('assets/images/logo_sm.png')}}" alt="" height="16">
+                        <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
                 </a>
 
                 <!-- LOGO -->
-                <a href="{{ route('dashboard') }}" class="logo text-center logo-dark">
+                <a href="{{ route('principal-dashboard') }}" class="logo text-center logo-dark">
                     <span class="logo-lg">
-                        <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="16">
+                        <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
                     <span class="logo-sm">
-                        <img src="{{asset('assets/images/logo_sm_dark.png')}}" alt="" height="16">
+                        <img src="{{asset('assets/images/dbt/img2.png')}}" alt="" height="25" width="25">
                     </span>
                 </a>
     
@@ -63,7 +63,7 @@
                         </li>
 
                         <li class="side-nav-item">
-                            <a href="{{ route('dashboard') }}" class="side-nav-link">
+                            <a href="{{ route('principal-dashboard') }}" class="side-nav-link">
                                 <i class="uil-calender"></i>
                                 <span> Dashboard </span>
                             </a>
@@ -699,11 +699,11 @@
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                                     <span class="account-user-avatar"> 
-                                        <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="user-image" class="rounded-circle">
+                                        <img src="{{asset('assets/images/dbt/img2.png')}}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
-                                        <span class="account-user-name">Soeng Souy</span>
-                                        <span class="account-position">Founder</span>
+                                        <span class="account-user-name">{{ Auth::user()->email }}</span>
+                                        <span class="account-position">Principal</span>
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
@@ -731,10 +731,14 @@
                                         <span>Lock Screen</span>
                                     </a> -->
 
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout me-1"></i>
                                         <span>Logout</span>
                                     </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
 
@@ -744,60 +748,8 @@
                         </button>
 
                         <div class="app-search dropdown d-none d-lg-block">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control dropdown-toggle" placeholder="Search..." id="top-search">
-                                    <span class="mdi mdi-magnify search-icon"></span>
-                                    <button class="input-group-text btn-primary" type="submit">Search</button>
-                                </div>
-                            </form>
-
-                            <!-- <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
-                                <div class="dropdown-header noti-title">
-                                    <h5 class="text-overflow mb-2">Found <span class="text-danger">17</span> results</h5>
-                                </div>
-
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="uil-notes font-16 me-1"></i>
-                                    <span>Analytics Report</span>
-                                </a>
-
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="uil-life-ring font-16 me-1"></i>
-                                    <span>How can I help you?</span>
-                                </a>
-
-                                <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                    <i class="uil-cog font-16 me-1"></i>
-                                    <span>User profile settings</span>
-                                </a>
-
-                                <div class="dropdown-header noti-title">
-                                    <h6 class="text-overflow mb-2 text-uppercase">Users</h6>
-                                </div>
-
-                                <div class="notification-list">
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="d-flex">
-                                            <img class="d-flex me-2 rounded-circle" src="{{asset('assets/images/users/avatar-2.jpg')}}" alt="Generic placeholder image" height="32">
-                                            <div class="w-100">
-                                                <h5 class="m-0 font-14">Erwin Brown</h5>
-                                                <span class="font-12 mb-0">UI Designer</span>
-                                            </div>
-                                        </div>
-                                    </a>
-
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                        <div class="d-flex">
-                                            <img class="d-flex me-2 rounded-circle" src="{{asset('assets/images/users/avatar-5.jpg')}}" alt="Generic placeholder image" height="32">
-                                            <div class="w-100">
-                                                <h5 class="m-0 font-14">Jacob Deo</h5>
-                                                <span class="font-12 mb-0">Developer</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div> -->
+                            <h3>DIRECT BENEFIT TRANSFER(DBT) </h3>
+                            <h4>Tribal Development Commissionerate</h4>
                         </div>
                     </div>
                     <!-- end Topbar -->
